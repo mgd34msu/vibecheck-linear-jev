@@ -4,7 +4,7 @@ vibecheck-linear-jev is a work ledger for Claude Code, Codex, Muse, and Antigrav
 
 The plugin is an MCP server, a skill that teaches agents to use it, and hooks that check the agent's own turns: briefs it sends to subagents, shell deletes it runs, and the reply it stops on.
 
-Version 0.1.0. It runs on Bun 1.3.14 or later only, natively on Linux, macOS and Windows. Windows has not been tested yet. There is no published remote repository yet, so installs currently come from a local checkout (see [Install](#install)).
+Version 0.1.0. It runs on Bun 1.3.14 or later only, natively on Linux, macOS and Windows. Windows has not been tested yet.
 
 It is derived from [vibecheck-jev](https://github.com/mgd34msu/vibecheck-jev), whose ledger was a local SQLite database. Here that database is replaced by Linear. Tool names and request shapes changed, and databases made by vibecheck or vibecheck-jev are not read or imported.
 
@@ -31,50 +31,38 @@ It is derived from [vibecheck-jev](https://github.com/mgd34msu/vibecheck-jev), w
 
 You need Bun 1.3.14 or later on your `PATH`. Every MCP server entry and hook runs `bun <plugin folder>/runtime/vibecheck-linear-jev.mjs` directly, with no shell script in between. There is no Node.js path. The Codex hook file has separate `commandWindows` entries, but nothing has been run on Windows yet, so treat Windows as untested.
 
-The install commands below take a local checkout path, because no remote is published yet. Replace `/path/to/vibecheck-linear-jev` with your checkout.
+Install from GitHub, pinned to the release tag.
 
 For Claude Code:
 
 ```bash
-claude plugin marketplace add /path/to/vibecheck-linear-jev
+claude plugin marketplace add mgd34msu/vibecheck-linear-jev@v0.1.0
 claude plugin install vibecheck-linear-jev@vibecheck-linear-jev
 ```
 
 For Codex:
 
 ```bash
-codex plugin marketplace add /path/to/vibecheck-linear-jev
-codex plugin add vibecheck-linear-jev@vibecheck-linear-jev
-```
-
-The repository ships a Claude Code catalog (`.claude-plugin/marketplace.json`, pointing at `platforms/claude`) and a Codex catalog (`.agents/plugins/marketplace.json`, pointing at the repository root). Whether `marketplace add` accepts a local path in your Claude Code and Codex versions is unverified here. If a client rejects a local path, run `claude plugin marketplace --help` or `codex plugin marketplace --help` to see which sources it accepts.
-
-For Muse, install a directory that holds no symlinks. A checkout that has run `bun install` has `node_modules` and is refused. Extract `artifacts/vibecheck-linear-jev-muse-plugin-0.1.0.zip` (made by `bun run build:release`) or copy the tracked files into a clean folder, then:
-
-```bash
-muse plugins install /path/to/clean-directory
-muse plugins approve vibecheck-linear-jev
-```
-
-For Antigravity, install the platform folder (or an extracted `vibecheck-linear-jev-antigravity-plugin-0.1.0.zip`), which copies only that harness's files:
-
-```bash
-agy plugin install /path/to/vibecheck-linear-jev/platforms/antigravity
-```
-
-Once the repository is published at `github.com/mgd34msu/vibecheck-linear-jev`, the remote forms from vibecheck-jev apply with the new name. They have not been run, because the remote does not exist yet:
-
-```bash
-claude plugin marketplace add mgd34msu/vibecheck-linear-jev@v0.1.0
-claude plugin install vibecheck-linear-jev@vibecheck-linear-jev
-
 codex plugin marketplace add mgd34msu/vibecheck-linear-jev --ref v0.1.0
 codex plugin add vibecheck-linear-jev@vibecheck-linear-jev
+```
 
+For Muse:
+
+```bash
 muse plugins marketplace add vibecheck-linear-jev https://github.com/mgd34msu/vibecheck-linear-jev
 muse plugins install vibecheck-linear-jev@vibecheck-linear-jev
 muse plugins approve vibecheck-linear-jev
 ```
+
+For Antigravity, clone the repository and install its platform folder, which copies only that harness's files:
+
+```bash
+git clone --branch v0.1.0 https://github.com/mgd34msu/vibecheck-linear-jev.git
+agy plugin install vibecheck-linear-jev/platforms/antigravity
+```
+
+To install from a local checkout instead, give `claude plugin marketplace add` or `codex plugin marketplace add` the checkout path in place of `mgd34msu/vibecheck-linear-jev`. Muse refuses directories that contain symlinks, such as a checkout with `node_modules`: install it from an extracted `artifacts/vibecheck-linear-jev-muse-plugin-0.1.0.zip` (made by `bun run build:release`) with `muse plugins install <directory>`, then `muse plugins approve vibecheck-linear-jev`.
 
 Claude Code and Antigravity installs hold only their own `platforms/` folder, never the other harnesses' configs. Codex and Muse install the whole tree: Muse derives its install through the Codex marketplace catalog, so that catalog must keep pointing at the root. The folders are assembled by `build:release` from the shared sources; edit the sources, not the folders.
 
@@ -645,8 +633,6 @@ bun install --frozen-lockfile
 bun run build:release
 bun run verify
 ```
-
-The clone URL is where the repository will live; no remote exists yet, so work from your local checkout and skip the clone.
 
 `build:release` refreshes the bundled runtime `runtime/vibecheck-linear-jev.mjs`, which includes the TypeSafe SDK, and writes the Claude, Codex, Muse, and Antigravity plugin archives, the standalone runtime archive and `SHA256SUMS` to `artifacts/`. `verify` checks formatting, strict types, forbidden type escapes, bundle and platform-folder freshness, then runs the tests under Bun, and builds. The tests use a scripted judgment source and an in-memory Linear, and make no network calls. `bun run verify:release` checks the archives and runs each harness's MCP server and hooks under Bun, the way that harness's manifest states them.
 
