@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "vibecheck-linear-jev": {
+      "command": "bun",
+      "args": [
+        "/absolute/path/to/vibecheck-linear-jev/runtime/vibecheck-linear-jev.mjs",
+        "--transport",
+        "stdio"
+      ],
+      "env": {
+        "LINEAR_API_KEY": "lin_api_your_key_here",
+        "VIBECHECK_LINEAR_JEV_DB": "/absolute/path/to/shared-data/state.sqlite3"
+      }
+    }
+  }
+}

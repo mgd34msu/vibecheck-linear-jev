@@ -1,0 +1,38 @@
+{
+  "description": "vibecheck-linear-jev checks for Claude Code: the brief check on Agent, Task and SendMessage, the delete guard on Bash, and the Stop checks. Each hook fails open when no judgment source answers.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Agent|Task|SendMessage",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/runtime/vibecheck-linear-jev.mjs\" hook pretool --client claude",
+            "timeout": 45
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/runtime/vibecheck-linear-jev.mjs\" hook bash-guard --client claude",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/runtime/vibecheck-linear-jev.mjs\" hook stop --client claude",
+            "timeout": 45
+          }
+        ]
+      }
+    ]
+  }
+}

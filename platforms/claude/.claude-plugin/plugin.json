@@ -1,0 +1,22 @@
+{
+  "name": "vibecheck-linear-jev",
+  "version": "0.1.0",
+  "description": "A coding-agent work ledger backed by Linear whose reports are checked by a Jev-compatible judgment model.",
+  "author": {
+    "name": "Mike Davis",
+    "email": "mgd34msu@gmail.com"
+  },
+  "homepage": "https://github.com/mgd34msu/vibecheck-linear-jev#readme",
+  "repository": "https://github.com/mgd34msu/vibecheck-linear-jev",
+  "license": "MIT",
+  "mcpServers": {
+    "vibecheck-linear-jev": {
+      "command": "bun",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/runtime/vibecheck-linear-jev.mjs",
+        "--transport",
+        "stdio"
+      ]
+    }
+  }
+}

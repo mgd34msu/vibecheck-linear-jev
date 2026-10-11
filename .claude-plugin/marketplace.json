@@ -1,0 +1,19 @@
+{
+  "name": "vibecheck-linear-jev",
+  "description": "The vibecheck-linear-jev plugin: a checked work ledger for coding agents, backed by Linear.",
+  "owner": {
+    "name": "Mike Davis",
+    "email": "mgd34msu@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "vibecheck-linear-jev",
+      "source": "./platforms/claude",
+      "description": "A coding-agent work ledger backed by Linear whose reports are checked by a Jev-compatible judgment model.",
+      "author": {
+        "name": "Mike Davis",
+        "email": "mgd34msu@gmail.com"
+      }
+    }
+  ]
+}

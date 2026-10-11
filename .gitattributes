@@ -1,0 +1,5 @@
+# Generated protocol strings contain significant trailing whitespace.
+runtime/* linguist-generated=true -whitespace
+# Hook files and manifests are compared byte for byte with their platform copies.
+hooks/* text eol=lf
+*.json text eol=lf

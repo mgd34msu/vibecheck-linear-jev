@@ -1,0 +1,43 @@
+{
+  "description": "vibecheck-linear-jev checks for Codex: the brief check on spawn_agent, send_message, followup_task and send_input, the delete guard on Bash, and the Stop checks. Each hook fails open when no judgment source answers.",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "^((functions\\.)?collaboration\\.)?(spawn_agent|send_message|followup_task|send_input)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"$PLUGIN_ROOT/runtime/vibecheck-linear-jev.mjs\" hook pretool --client codex",
+            "commandWindows": "bun \"%PLUGIN_ROOT%\\runtime\\vibecheck-linear-jev.mjs\" hook pretool --client codex",
+            "timeout": 45,
+            "statusMessage": "Checking the brief against the plan"
+          }
+        ]
+      },
+      {
+        "matcher": "^Bash$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"$PLUGIN_ROOT/runtime/vibecheck-linear-jev.mjs\" hook bash-guard --client codex",
+            "commandWindows": "bun \"%PLUGIN_ROOT%\\runtime\\vibecheck-linear-jev.mjs\" hook bash-guard --client codex",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bun \"$PLUGIN_ROOT/runtime/vibecheck-linear-jev.mjs\" hook stop --client codex",
+            "commandWindows": "bun \"%PLUGIN_ROOT%\\runtime\\vibecheck-linear-jev.mjs\" hook stop --client codex",
+            "timeout": 45,
+            "statusMessage": "Checking the reply"
+          }
+        ]
+      }
+    ]
+  }
+}

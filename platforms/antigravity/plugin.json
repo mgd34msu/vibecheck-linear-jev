@@ -1,0 +1,11 @@
+{
+  "name": "vibecheck-linear-jev",
+  "displayName": "Vibecheck Linear Jev",
+  "description": "A coding-agent work ledger backed by Linear whose reports are checked by a Jev-compatible judgment model.",
+  "version": "0.1.0",
+  "suggestedPrompts": [
+    "Join this project's vibecheck-linear-jev ledger and show what needs attention.",
+    "Record this task with its acceptance criteria in the ledger.",
+    "Mark my claim complete with a report and show whether it was verified."
+  ]
+}

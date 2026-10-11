@@ -1,0 +1,44 @@
+{
+  "name": "vibecheck-linear-jev",
+  "version": "0.1.0",
+  "description": "A coding-agent work ledger backed by Linear whose reports are checked by a Jev-compatible judgment model.",
+  "author": {
+    "name": "Mike Davis",
+    "email": "mgd34msu@gmail.com",
+    "url": "https://github.com/mgd34msu"
+  },
+  "homepage": "https://github.com/mgd34msu/vibecheck-linear-jev#readme",
+  "repository": "https://github.com/mgd34msu/vibecheck-linear-jev",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "ledger",
+    "linear",
+    "coding-agents",
+    "verification",
+    "jev"
+  ],
+  "skills": "./skills/",
+  "hooks": "./hooks/codex-hooks.json",
+  "mcpServers": {
+    "vibecheck-linear-jev": {
+      "command": "bun",
+      "args": ["runtime/vibecheck-linear-jev.mjs", "--transport", "stdio"],
+      "cwd": "."
+    }
+  },
+  "interface": {
+    "displayName": "Vibecheck Linear Jev",
+    "shortDescription": "A checked work ledger for coding agents, backed by Linear",
+    "longDescription": "Record tasks, acceptance criteria, claims and handoffs as a Linear project. A Jev-compatible judgment model checks done reports, briefs, blockers and replies against the recorded plan, and status shows each task as reported and as verified.",
+    "developerName": "Mike Davis",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "websiteURL": "https://github.com/mgd34msu/vibecheck-linear-jev",
+    "defaultPrompt": [
+      "Join this project's vibecheck-linear-jev ledger and show what needs attention.",
+      "Record this task with its acceptance criteria in the ledger.",
+      "Mark my claim complete with a report and show whether it was verified."
+    ]
+  }
+}

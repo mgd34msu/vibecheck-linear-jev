@@ -1,0 +1,61 @@
+{
+  "capabilities": {
+    "commands": [],
+    "hooks": [
+      {
+        "command": ["bun", "hooks/muse-pretool.mjs"],
+        "event": "PreToolUse",
+        "id": "pretool",
+        "statusMessage": "Checking the brief against the plan",
+        "timeoutMs": 45000
+      },
+      {
+        "command": ["bun", "hooks/muse-bash-guard.mjs"],
+        "event": "PreToolUse",
+        "id": "bash-guard",
+        "timeoutMs": 10000
+      },
+      {
+        "command": ["bun", "hooks/muse-subagent-stop.mjs"],
+        "event": "SubagentStop",
+        "id": "subagent-stop",
+        "statusMessage": "Checking the reply",
+        "timeoutMs": 45000
+      },
+      {
+        "command": ["bun", "hooks/muse-session-end.mjs"],
+        "event": "SessionEnd",
+        "id": "session-end",
+        "timeoutMs": 45000
+      }
+    ],
+    "mcpServers": [
+      {
+        "command": [
+          "bun",
+          "runtime/vibecheck-linear-jev.mjs",
+          "--transport",
+          "stdio"
+        ],
+        "id": "vibecheck-linear-jev",
+        "transport": "stdio"
+      }
+    ],
+    "reminders": [],
+    "skills": [
+      {
+        "id": "vibecheck-linear-jev",
+        "path": "skills/vibecheck-linear-jev/SKILL.md"
+      }
+    ]
+  },
+  "compat": {
+    "manifestDir": ".muse-plugin",
+    "source": "native"
+  },
+  "description": "A coding-agent work ledger backed by Linear whose reports are checked by a Jev-compatible judgment model.",
+  "displayName": "Vibecheck Linear Jev",
+  "name": "vibecheck-linear-jev",
+  "schemaVersion": 1,
+  "version": "0.1.0"
+}
